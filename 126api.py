@@ -9,7 +9,7 @@ def getWebRequest(url):
 
 if __name__ == '__main__':
 	list1 = ['0601577','1002415','1002261','1002594','0600518']		#代码
-	list2 = [9.8,31,-4.95,0,0]																					#预警值超过闪烁显示
+	list2 = [9.8,31,-4.95,0,0]										#预警值超过闪烁显示
 	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002594,1002415,money.api?callback=data"
 	url = 'https://api.money.126.net/data/feed/0000001,'+str(list1)[1:len(str(list1))-1].replace('\'','').replace(' ','')+',money.api?callback=data'
 	while 1 == 1 :
