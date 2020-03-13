@@ -51,21 +51,21 @@ print('当前目录：' + os.getcwd())
 count = 0
 subDirList = []
 for dirName,subDir,files in os.walk(path):
-		if count == 0:		#只扫描第一层目录
-				subDirList = subDir
-		count = count + 1
+	if count == 0:		#只扫描第一层目录
+		subDirList = subDir
+	count = count + 1
 		
 count = 0
 for subdir in subDirList:
-		print('【' + str(count+1) + '/' + str(len(subDirList)) + '】 目录:' + subDirList[count])
-		tmdir = path + '/' + subDirList[count] + '/tm'
-		isExists=os.path.exists(tmdir)
-		if not isExists:
-				os.makedirs(tmdir)	#创建缩略图目录
-		filesList = os.listdir(subdir)
-		for files in filesList:
-				if(os.path.isfile(path + '/' + subDirList[count] + '/' + files)):
-						ext = os.path.splitext(files)[-1]
-						if(ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.JPG' or ext == '.JPEG' or ext == '.PNG'):
-								make_thumb(path + '/' + subDirList[count],files)
-		count = count + 1
+	print('【' + str(count+1) + '/' + str(len(subDirList)) + '】 目录:' + subDirList[count])
+	tmdir = path + '/' + subDirList[count] + '/tm'
+	isExists=os.path.exists(tmdir)
+	if not isExists:
+		os.makedirs(tmdir)	#创建缩略图目录
+	filesList = os.listdir(subdir)
+	for files in filesList:
+		if(os.path.isfile(path + '/' + subDirList[count] + '/' + files)):
+			ext = os.path.splitext(files)[-1]
+			if(ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.JPG' or ext == '.JPEG' or ext == '.PNG'):
+				make_thumb(path + '/' + subDirList[count],files)
+	count = count + 1
