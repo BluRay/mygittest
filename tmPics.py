@@ -57,7 +57,7 @@ for dirName,subDir,files in os.walk(path):
 		
 count = 0
 for subdir in subDirList:
-		print('【' + str(count) + '/' + str(len(subDirList)) + '】 目录:' + subDirList[count])
+		print('【' + str(count+1) + '/' + str(len(subDirList)) + '】 目录:' + subDirList[count])
 		tmdir = path + '/' + subDirList[count] + '/tm'
 		isExists=os.path.exists(tmdir)
 		if not isExists:
