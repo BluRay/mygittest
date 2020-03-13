@@ -44,7 +44,7 @@ def make_thumb(path, filename, sizes=(128, 128)):
     thumb = region.resize((sizes[0], sizes[1]), Image.ANTIALIAS)
     #保存图片
     savename = path + '/tm/' + filename
-    thumb.save(savename, quality=100)
+    thumb.save(savename, quality=80)
 	
 path = os.getcwd()
 print('当前目录：' + os.getcwd())
