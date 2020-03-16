@@ -63,9 +63,11 @@ for subdir in subDirList:
 	if not isExists:
 		os.makedirs(tmdir)	#创建缩略图目录
 	filesList = os.listdir(subdir)
-	for files in filesList:
+	for i,files in enumerate(filesList):
+		print('\r 正在处理 完成' + '{:.0%}'.format((i+1)/len(filesList)),end="",flush=True)
 		if(os.path.isfile(path + '/' + subDirList[count] + '/' + files)):
 			ext = os.path.splitext(files)[-1]
 			if(ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.JPG' or ext == '.JPEG' or ext == '.PNG'):
 				make_thumb(path + '/' + subDirList[count],files)
+	print('\r')
 	count = count + 1
