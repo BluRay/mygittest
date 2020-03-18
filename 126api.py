@@ -3,14 +3,29 @@ import json
 import time
 
 def getWebRequest(url):
-	response = urllib.request.urlopen(url)
-	html = response.read()
-	return html.decode('utf-8')
+	# 构建了两个代理Handler，一个有代理IP，一个没有代理IP urllib.request.ProxyHandler
+	httpproxy_handler = urllib.request.ProxyHandler({"https": "10.23.5.105:3128"})
+	nullproxy_handler = urllib.request.ProxyHandler({})
+	header={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"}
+	
+	proxySwitch = True #定义一个代理开关
+	if proxySwitch:
+		opener = urllib.request.build_opener(httpproxy_handler)
+	else:
+		opener = urllib.request.build_opener(nullproxy_handler)
+	urllib.request.install_opener(opener)
+	return urllib.request.urlopen(url).read().decode("utf8")
+	
+	#request = urllib.request.Request(url,headers=header)
+	#response = opener.open(request)
+	#html = response.read()
+	#return html.decode('utf-8')
 
 if __name__ == '__main__':
-	list1 = ['0601577','1002415','1002261','1002594','0600518']		#代码
-	list2 = [9.8,31,-4.95,0,0]										#预警值超过闪烁显示
-	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002594,1002415,money.api?callback=data"
+	list1 = ['1002261','1002661','1002594','0600476']		#代码
+	list2 = [13,-13,-48,-12.5]										#预警值超过闪烁显示
+	#url = 'http://10.23.1.75:8080/'
+	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002415,1002261,1002594,0600518,money.api?callback=data"
 	url = 'https://api.money.126.net/data/feed/0000001,'+str(list1)[1:len(str(list1))-1].replace('\'','').replace(' ','')+',money.api?callback=data'
 	while 1 == 1 :
 		html = getWebRequest(url)
@@ -38,8 +53,10 @@ if __name__ == '__main__':
 			if((data2[list1[count]]['percent'] >= 0.06) | (data2[list1[count]]['percent'] <= -0.06)):
 				style = style + ';7'
 			priceStr = priceStr + '\033['+str(style)+';'+str(color)+';40m'+str(data2[list1[count]]['price'])+'\033[0m' + ' '
+			#priceStr = priceStr + str(data2[list1[count]]['price']) + ' '
 			count = count + 1	
 		
 		price = data2['0000001']['arrow'] + ' ' + str(data2['0000001']['percent'])
+		#print(price)
 		print (' %s  %s\r' % (price,priceStr),end = "")	
-		time.sleep( 120 )
+		time.sleep( 30 )
