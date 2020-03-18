@@ -20,11 +20,15 @@ def getWebRequest(url):
 	#response = opener.open(request)
 	#html = response.read()
 	#return html.decode('utf-8')
+	
+	#1002261	talkweb
+	#1002661	KeMing
+	#1002594	BYD
+	#0600476	XianYou
 
 if __name__ == '__main__':
 	list1 = ['1002261','1002661','1002594','0600476']		#代码
 	list2 = [13,-13,-48,-12.5]										#预警值超过闪烁显示
-	#url = 'http://10.23.1.75:8080/'
 	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002415,1002261,1002594,0600518,money.api?callback=data"
 	url = 'https://api.money.126.net/data/feed/0000001,'+str(list1)[1:len(str(list1))-1].replace('\'','').replace(' ','')+',money.api?callback=data'
 	while 1 == 1 :
@@ -38,7 +42,7 @@ if __name__ == '__main__':
 			if(data2[list1[count]]['arrow'] == '\u2191'):
 				color = 37
 			else:
-				color = 35
+				color = 32
 			if(list2[count] > 0):
 				if(data2[list1[count]]['price'] >= list2[count]):
 					style = '5'
