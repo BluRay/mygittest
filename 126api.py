@@ -30,12 +30,12 @@ if __name__ == '__main__':
 	'1002352',		#5 SF
 	'1002415']		#6 HaiKanWeiShi
 	list2 = [
-	13,				#1
+	13,			#1
 	-13,			#2
 	-48,			#3
-	-12.5,		#4
+	-12.5,			#4
 	-40,			#5
-	-25				#6
+	-25			#6
 	]		#预警值超过闪烁显示
 	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002415,1002261,1002594,0600518,money.api?callback=data"
 	url = 'https://api.money.126.net/data/feed/0000001,'+str(list1)[1:len(str(list1))-1].replace('\'','').replace(' ','')+',money.api?callback=data'
