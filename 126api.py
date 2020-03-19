@@ -64,8 +64,7 @@ if __name__ == '__main__':
 				
 			if((data2[list1[count]]['percent'] >= 0.06) | (data2[list1[count]]['percent'] <= -0.06)):
 				style = style + ';7'
-			priceStr = priceStr + '\033['+str(style)+';'+str(color)+';40m'+str(data2[list1[count]]['price'])+'\033[0m' + ' '
-			#priceStr = priceStr + str(data2[list1[count]]['price']) + ' '
+			priceStr = priceStr + '[' + str(count + 1) + ']' + '\033['+str(style)+';'+str(color)+';40m'+str(data2[list1[count]]['price'])+'\033[0m' + ' '
 			count = count + 1	
 		
 		price = data2['0000001']['arrow'] + ' ' + str(data2['0000001']['percent'])
