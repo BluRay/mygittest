@@ -20,15 +20,23 @@ def getWebRequest(url):
 	#response = opener.open(request)
 	#html = response.read()
 	#return html.decode('utf-8')
-	
-	#1002261	talkweb
-	#1002661	KeMing
-	#1002594	BYD
-	#0600476	XianYou
 
 if __name__ == '__main__':
-	list1 = ['1002261','1002661','1002594','0600476']		#代码
-	list2 = [13,-13,-48,-12.5]										#预警值超过闪烁显示
+	list1 = [
+	'1002261',		#1 talkweb
+	'1002661',		#2 KeMing
+	'1002594',		#3 BYD
+	'0600476',		#4 XianYou
+	'1002352',		#5 SF
+	'1002415']		#6 HaiKanWeiShi
+	list2 = [
+	13,				#1
+	-13,			#2
+	-48,			#3
+	-12.5,		#4
+	-40,			#5
+	-25				#6
+	]		#预警值超过闪烁显示
 	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002415,1002261,1002594,0600518,money.api?callback=data"
 	url = 'https://api.money.126.net/data/feed/0000001,'+str(list1)[1:len(str(list1))-1].replace('\'','').replace(' ','')+',money.api?callback=data'
 	while 1 == 1 :
@@ -38,19 +46,19 @@ if __name__ == '__main__':
 		priceStr = ''
 		while count < len(list1):
 			color = 30			#字体颜色：30（黑色）31（红色）32（绿色）37（白色）34（蓝色）35（洋 红）
-			style = '0'			#显示方式: 0（默认值）1（高亮）22（非粗体）4（下划线）5（闪烁）
+			style = '0'			#显示方式: 0（默认值）7（高亮）22（非粗体）4（下划线）5（闪烁）
 			if(data2[list1[count]]['arrow'] == '\u2191'):
 				color = 37
 			else:
 				color = 32
 			if(list2[count] > 0):
 				if(data2[list1[count]]['price'] >= list2[count]):
-					style = '5'
+					style = '4'
 				else:
 					style = '0'			
 			if(list2[count] < 0):
 				if(data2[list1[count]]['price'] <= (0-list2[count])):
-					style = '5'
+					style = '4'
 				else:
 					style = '0'		
 				
@@ -62,5 +70,5 @@ if __name__ == '__main__':
 		
 		price = data2['0000001']['arrow'] + ' ' + str(data2['0000001']['percent'])
 		#print(price)
-		print (' %s  %s\r' % (price,priceStr),end = "")	
+		print (' %s  %s\t\t\t\t\r' % (price,priceStr),end = "")	
 		time.sleep( 30 )
