@@ -68,6 +68,10 @@ if __name__ == '__main__':
 			count = count + 1	
 		
 		price = data2['0000001']['arrow'] + ' ' + str(data2['0000001']['percent'])
-		#print(price)
-		print (' %s  %s\t\t\t\t\r' % (price,priceStr),end = "")	
-		time.sleep( 30 )
+		wait_time = 60
+		coun_time = 0
+		while(coun_time < wait_time):
+			h = '' if wait_time - coun_time > 9 else '0'
+			print (' %s %s  %s\t\t\t\t\r' % (h + str(wait_time - coun_time),price,priceStr),end = "")	
+			coun_time = coun_time + 1
+			time.sleep( 1 )
