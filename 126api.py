@@ -23,26 +23,31 @@ def getWebRequest(url):
 
 if __name__ == '__main__':
 	list1 = [
-	'1002261',		#1 talkweb
-	'1002415',		#2 HaiKanWeiShi
-	#'0600104',		#3 ShangQi
-	'1002661',		#4 KeMing
-	'1002594',		#5 BYD
-	'0600476',		#6 XianYou
-	#'1002352',		#7 SF
+	'0600104',		#1 ShangQi
+	'0600535',		#2 TSL
+	'1002405',		#3 SiWeiTuXin
+	'1002415',		#4 HaiKanWeiShi
+	'0600476',		#5 XianYou
+	'1000977',		#6 LanCao
+	#'0601577',		## CSBank
+	'0600036',		#7 ZSBank
+	#'1002661',		## KeMing
+	#'1002352',		## SF
 	'1300433',		#8 LanShi
-	'0601577'			#9 CSBank
+	'1002261',		#9 Talkweb
+	'1002594',		#10 BYD
 	]
-	list2 = [
-	12,				#1
-	35,				#2
-	#-17,			#3
-	-12.5,		#4
-	-48,			#5
-	-12.5,		#6
-	#-40,			#7
-	-15,			#8
-	-7.5			#9
+	list2 = [	## 预警值
+	22,				#1 ShangQi
+	19.5,			#2 TSL 
+	-17.5,		#3 SiWeiTuXin
+	-28,			#4 HaiKanWeiShi
+	-12.5,		#5 XianYou
+	-36.5,	 	#6 LanCao
+	-33.5,		#7 ZSBank
+	-28.5,		#8 LanShi
+	-8.5,			#9 Talkweb
+	-50,			#10 BYD
 	]		#预警值超过闪烁显示
 	#url = "https://api.money.126.net/data/feed/0000001,0601577,1002415,1002261,1002594,0600518,money.api?callback=data"
 	url = 'https://api.money.126.net/data/feed/0000001,'+str(list1)[1:len(str(list1))-1].replace('\'','').replace(' ','')+',money.api?callback=data'
@@ -73,8 +78,15 @@ if __name__ == '__main__':
 				
 			if((data2[list1[count]]['percent'] >= 0.065) | (data2[list1[count]]['percent'] <= -0.065)):
 				style = style + ';7'
-			priceStr = priceStr + '[' + str(count + 1) + ']' + '\033['+str(style)+';'+str(color)+';40m'+str(data2[list1[count]]['price'])+'\033[0m' + ' '
-			yesPrStr = yesPrStr + '[' + str(count + 1) + ']' + str(data2[list1[count]]['yestclose']) + ' '
+			price_patch = ''
+			if(str(data2[list1[count]]['price'])[-2:-1] == '.'):
+				price_patch = '0'
+			priceStr = priceStr + '[' + str(count + 1) + ']' + '\033['+str(style)+';'+str(color)+';40m'+str(data2[list1[count]]['price'])+price_patch+'\033[0m' + ' '
+			
+			price_patch = ''
+			if(str(data2[list1[count]]['yestclose'])[-2:-1] == '.'):
+				price_patch = '0'
+			yesPrStr = yesPrStr + '[' + str(count + 1) + ']' + str(data2[list1[count]]['yestclose']) + price_patch + ' '
 			count = count + 1	
 		
 		price = data2['0000001']['arrow'] + ' ' + str(data2['0000001']['percent']*100).replace('-','')[0:5]
